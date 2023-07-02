@@ -15,7 +15,7 @@ class RoleUser extends Pivot
      *
      * @var string
      */
-    protected $table = 'roles_users';
+    protected $table = 'role_user';
 
     public function user()
     {

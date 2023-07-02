@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -47,7 +48,7 @@ Route::middleware(VerifyToken::class)->group(function () {
 
 Route::middleware(VerifyToken::class)->group(function () {
     
-  
+ Route::post('role/user/{user}', [RoleController::class, 'assignRole']); 
 
 });
 
