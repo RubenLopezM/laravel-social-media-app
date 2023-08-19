@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Events\CommentCreated;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Comment extends Model
 {
@@ -26,6 +27,15 @@ class Comment extends Model
         'post_id',
         'user_id'        
     ];
+
+    protected static function boot()
+{
+    parent::boot();
+
+    static::created(function ($comment) {
+        event(new CommentCreated($comment));
+    });
+}
 
     public function user(){
     return $this->belongsTo(User::class);

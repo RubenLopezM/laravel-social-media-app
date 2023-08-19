@@ -47,5 +47,9 @@ class PostController extends Controller
         return $this->postRepository->getUserPosts($user);
     }
 
+    public function getUserLastPost(Request $request, User $user){
+        return $this->postRepository->getUserLastPost($user);
+    }
+
  
 }

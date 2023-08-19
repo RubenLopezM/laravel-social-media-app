@@ -35,7 +35,8 @@ Route::middleware(VerifyToken::class)->group(function () {
     Route::post('/posts',[PostController::class, 'storePost']);   
     Route::get('/posts', [PostController::class, 'getPosts']);
     Route::get('/posts/user/{user}', [PostController::class, 'getUserPosts']);
-    Route::get('/posts/{post}', [PostController::class, 'getPost']); 
+    Route::get('/posts/{post}', [PostController::class, 'getPost']);
+    Route::get('/lastpost/user/{user}', [PostController::class, 'getUserLastPost']); 
 
 });
 

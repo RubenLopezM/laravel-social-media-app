@@ -27,7 +27,13 @@ final class PostRepository implements PostRepositoryInterface{
 
     public function getUserPosts(User $user){
         
-        return PostResource::collection(Post::whereBelongsTo($user)->get());
+        return PostResource::collection(Post::whereBelongsTo($user)
+        ->withCount('comments')
+        ->orderByDesc('comments_count')->get());
+    }
+
+    public function getUserLastPost(User $user){
+        return new PostResource($user->latestPost);
     }
 
 }
