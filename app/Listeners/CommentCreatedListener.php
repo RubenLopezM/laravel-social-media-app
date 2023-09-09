@@ -19,6 +19,13 @@ class CommentCreatedListener implements ShouldQueue
     }
 
     /**
+     * The name of the queue the job should be sent to.
+     *
+     * @var string|null
+     */
+    public $queue = 'commentListener';
+
+    /**
      * Handle the event.
      */
     public function handle(CommentCreated $event): void

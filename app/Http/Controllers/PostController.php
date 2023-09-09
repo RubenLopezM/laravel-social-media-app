@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Tymon\JWTAuth\Contracts\Providers\Auth as ProvidersAuth;
 
 class PostController extends Controller
@@ -29,7 +30,7 @@ class PostController extends Controller
         if ($detailed){
             return $this->postRepository->getPostsWithDetails();
         }
-        return $this->postRepository->getPosts();
+       return Cache::remember('posts', 60 * 60, function(){return $this->postRepository->getPosts();});
     }
 
     public function storePost(Request $request){

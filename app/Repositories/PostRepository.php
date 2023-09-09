@@ -21,8 +21,7 @@ final class PostRepository implements PostRepositoryInterface{
 
     public function getPostsWithDetails()
     {
-        $posts = Post::with('comments')->get();
-        return $posts;
+        return Post::with('comments')->get();
     }
 
     public function getUserPosts(User $user){
