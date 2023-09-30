@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Contracts\Providers\Auth as ProvidersAuth;
 
 class PostController extends Controller
@@ -34,6 +35,15 @@ class PostController extends Controller
     }
 
     public function storePost(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|unique:posts|max:255',
+            'description' => 'required',
+        ]);
+
+        if ($validator->fails()){
+            return response()->json(['errors'=> $validator->errors()], 400);
+        }
         
         $post= Post::create([
             'title'=>$request->input('title'),

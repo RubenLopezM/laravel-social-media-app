@@ -23,4 +23,8 @@ class UserController extends Controller
     public function deleteUser(User $user){
         return $this->userRepository->deleteUser($user);
     }
+
+    public function searchUsers(Request $request){
+        return $this->userRepository->searchUsers($request->query());
+    }
 }

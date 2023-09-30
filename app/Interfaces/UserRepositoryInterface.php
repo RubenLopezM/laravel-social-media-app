@@ -8,4 +8,5 @@ interface UserRepositoryInterface{
 
     public function getUsersWithPosts();
     public function deleteUser(User $user);
+    public function searchUsers($attributes);
 }

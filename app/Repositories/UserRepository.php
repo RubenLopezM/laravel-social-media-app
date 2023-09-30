@@ -17,4 +17,12 @@ final class UserRepository implements UserRepositoryInterface{
         $user->save();
         return response($user);
     }
+
+    public function searchUsers($attributes){
+        
+        $users = User::with(['posts' => fn($query) => $query->where('title', 'like', '%'.$attributes['title'].'%')])
+        ->whereHas('posts', fn ($query) => $query->where('title', 'like', '%'.$attributes['title'].'%'))->get();
+
+        return response($users);
+    }
 }
