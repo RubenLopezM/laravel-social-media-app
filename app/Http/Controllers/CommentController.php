@@ -10,6 +10,7 @@ use App\Repositories\CommentRepository;
 use App\Http\Requests\CommentStoreRequest;
 use App\Interfaces\CommentRepositoryInterface;
 
+
 class CommentController extends Controller
 {   
 
@@ -33,5 +34,9 @@ class CommentController extends Controller
         $attributes = array_merge($validated, array("post_id"=> $post->id, "user_id"=> Auth::id()));
         return $this->commentRepository->storeComment($attributes);
 
+    }
+
+    public function searchComments(Request $request){
+        return $this->commentRepository->searchComments($request);
     }
 }

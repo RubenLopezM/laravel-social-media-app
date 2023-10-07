@@ -13,7 +13,21 @@ final class CommentRepository implements CommentRepositoryInterface {
         return CommentResource::collection(Comment::simplePaginate(10));
     }
 
-    public function storeComment($attributes){
+    public function storeComment($attributes)
+    {
         return Comment::create($attributes);
+    }
+
+    public function searchComments($request)
+    {
+        $comments = Comment::query()
+                        ->when($request->user_id, function ($query) use ($request){
+                            $query->where('user_id', $request->user_id);
+                        })
+                        ->when($request->post_id, function ($query) use ($request){
+                            $query->where('post_id', $request->post_id);
+                        })
+                        ->get();
+        return CommentResource::collection($comments);
     }
 }

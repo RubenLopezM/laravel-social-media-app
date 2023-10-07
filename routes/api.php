@@ -8,6 +8,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use Illuminate\Routing\Route as RoutingRoute;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,7 @@ Route::middleware(VerifyToken::class)->prefix('posts')->group(function () {
 Route::middleware(VerifyToken::class)->group(function () {
     
     Route::post('/posts/{post}/comment', [CommentController::class, 'storeComment']);
+    Route::get('/comments/search', [CommentController::class, 'searchComments']);
     Route::get('/comments',[CommentController::class, 'getComments']);   
 
 });

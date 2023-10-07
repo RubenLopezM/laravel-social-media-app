@@ -27,8 +27,8 @@ class PostController extends Controller
 
     public function getPosts(Request $request)
     {
-        $detailed = $request->query('detailed',false);
-        if ($detailed){
+         
+        if ($request->query('detailed',false)){
             return $this->postRepository->getPostsWithDetails();
         }
        return Cache::remember('posts', 60 * 60, function(){return $this->postRepository->getPosts();});
