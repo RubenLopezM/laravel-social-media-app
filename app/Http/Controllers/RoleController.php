@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+
 class RoleController extends Controller
 {
     public function assignRole(Request $request, User $user){
@@ -17,4 +18,9 @@ class RoleController extends Controller
 
         return $user->roles->pluck('name');
     }
+
+    public function getRoles(User $user){
+        return $user->roles()->get(['id', 'name']);
+    }
 }
+ 

@@ -31,27 +31,28 @@ Route::middleware(['api'])->group(function() {
     Route::get('/getaccount', [AuthController::class, 'getaccount']);
 });
 
-Route::middleware(VerifyToken::class)->prefix('posts')->group(function () {
+Route::middleware(VerifyToken::class)->prefix('posts')->controller(PostController::class)->group(function () {
     
-    Route::post('/',[PostController::class, 'storePost']);   
-    Route::get('/', [PostController::class, 'getPosts']);
-    Route::get('/user/{user}', [PostController::class, 'getUserPosts']);
-    Route::get('/{post}', [PostController::class, 'getPost']);
-    Route::get('/lastpost/user/{user}', [PostController::class, 'getUserLastPost']); 
+    Route::post('/', 'storePost');   
+    Route::get('/', 'getPosts');
+    Route::get('/user/{user}', 'getUserPosts');
+    Route::get('/{post}', 'getPost');
+    Route::get('/lastpost/user/{user}', 'getUserLastPost'); 
 
 });
 
-Route::middleware(VerifyToken::class)->group(function () {
+Route::middleware(VerifyToken::class)->controller(CommentController::class)->group(function () {
     
-    Route::post('/posts/{post}/comment', [CommentController::class, 'storeComment']);
-    Route::get('/comments/search', [CommentController::class, 'searchComments']);
-    Route::get('/comments',[CommentController::class, 'getComments']);   
+    Route::post('/posts/{post}/comment', 'storeComment');
+    Route::get('/comments/search', 'searchComments');
+    Route::get('/comments', 'getComments');   
 
 });
 
-Route::middleware(VerifyToken::class)->group(function () {
+Route::middleware(VerifyToken::class)->prefix('role/user')->controller(RoleController::class)->group(function () {
     
- Route::post('role/user/{user}', [RoleController::class, 'assignRole']); 
+ Route::post('/{user}', 'assignRole'); 
+ Route::get('/{user}', 'getRoles'); 
 
 });
 
