@@ -59,6 +59,7 @@ Route::middleware(VerifyToken::class)->prefix('role/user')->controller(RoleContr
 Route::middleware(VerifyToken::class)->group(function () {
     
     Route::get('users/search', [UserController::class, 'searchUsers']);
+    Route::get('users/{user:name}', [UserController::class, 'getUserByName']);
     Route::delete('/users/{user}', [UserController::class, 'deleteUser']);    
 });
 

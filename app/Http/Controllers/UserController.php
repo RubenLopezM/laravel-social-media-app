@@ -20,6 +20,10 @@ class UserController extends Controller
         return $this->userRepository->getUsersWithPosts();
     }
 
+    public function getUserByName(User $user){
+        return $user;
+    }
+
     public function deleteUser(User $user){
         return $this->userRepository->deleteUser($user);
     }

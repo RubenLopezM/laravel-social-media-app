@@ -33,7 +33,9 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception)
     {
-        if ($exception instanceof ModelNotFoundException) return response()->json(["message" => "Record not found","code"=>404 ], Response::HTTP_NOT_FOUND); 
+        if ($exception instanceof ModelNotFoundException){
+            $class = class_basename($exception->getModel());
+        } return response()->json(["message" => $class. " not found","code"=>404 ], Response::HTTP_NOT_FOUND); 
 
         if ($exception instanceof AuthorizationException) return response()->json(['error' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
         

@@ -41,11 +41,13 @@ public function setTitleAttribute($value)
     $this->attributes['title'] = ucfirst($value);
 }
 
-    public function user(){
+    public function user()
+    {
     return $this->belongsTo(User::class);   
     }
 
-    public function comments(){
+    public function comments()
+    {
     return $this->hasMany(Comment::class);
     }
 

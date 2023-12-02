@@ -45,10 +45,9 @@ class PostController extends Controller
             return response()->json(['errors'=> $validator->errors()], 400);
         }
         
-        $post= Post::create([
+        $post= auth()->user()->posts()->create([
             'title'=>$request->input('title'),
             'description'=>$request->input('description'),
-            'user_id'=> Auth::id()
         ]);
         
         return response($post);
