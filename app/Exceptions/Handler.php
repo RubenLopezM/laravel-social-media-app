@@ -36,11 +36,13 @@ class Handler extends ExceptionHandler
     {   
         if ($exception instanceof ThrottleException) return response()->json(['message'=> $exception->getMessage()], Response::HTTP_TOO_MANY_REQUESTS);
 
+        if ($exception instanceof AuthorizationException) return response()->json(['error' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
+
         if ($exception instanceof ModelNotFoundException){
             $class = class_basename($exception->getModel());
         } return response()->json(["message" => $class. " not found","code"=>404 ], Response::HTTP_NOT_FOUND); 
 
-        if ($exception instanceof AuthorizationException) return response()->json(['error' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
+       
 
         
         

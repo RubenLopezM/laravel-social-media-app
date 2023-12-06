@@ -37,6 +37,7 @@ Route::middleware([VerifyToken::class,'throttle:posts_routes'])->prefix('posts')
     Route::get('/', 'getPosts');
     Route::get('/user/{user}', 'getUserPosts');
     Route::get('/{post}', 'getPost');
+    Route::put('/{post}', 'updatePost');
     Route::get('/lastpost/user/{user}', 'getUserLastPost'); 
 
 });

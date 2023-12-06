@@ -14,6 +14,15 @@ final class PostRepository implements PostRepositoryInterface{
         return new PostResource($post->loadCount('comments'));   
     }
 
+    public function updatePost(Post $post, array $attributes)
+    {
+        $post->title = $attributes['title'];
+        $post->description = $attributes['description'];
+        $post->save();
+
+        return new PostResource($post);
+    }
+
     public function getPosts()
     {
         return Post::all();

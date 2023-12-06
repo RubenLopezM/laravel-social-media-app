@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Contracts\Providers\Auth as ProvidersAuth;
 
@@ -51,6 +52,17 @@ class PostController extends Controller
         ]);
         
         return response($post);
+    }
+
+    public function updatePost(Request $request, Post $post){
+
+        Gate::authorize('update-post', $post);
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|unique:posts|max:255',
+            'description' => 'required',
+        ]);
+
+        return $this->postRepository->updatePost($post, $request->all());
     }
 
     public function getUserPosts(Request $request, User $user){
