@@ -38,9 +38,7 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         RateLimiter::for('posts_routes', function (Request $request) {
-            return Limit::perMinute(5)->by($request->ip())->response(function (Request $request, array $headers){
-                return response('Custom response', 429, $headers);
-            });
+            return Limit::perMinute(5)->by($request->ip());
         });
     }
 }

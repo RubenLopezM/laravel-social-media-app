@@ -31,7 +31,7 @@ Route::middleware(['api'])->group(function() {
     Route::get('/getaccount', [AuthController::class, 'getaccount']);
 });
 
-Route::middleware(VerifyToken::class)->prefix('posts')->controller(PostController::class)->group(function () {
+Route::middleware([VerifyToken::class,'throttle:posts_routes'])->prefix('posts')->controller(PostController::class)->group(function () {
     
     Route::post('/', 'storePost');   
     Route::get('/', 'getPosts');
@@ -56,10 +56,10 @@ Route::middleware(VerifyToken::class)->prefix('role/user')->controller(RoleContr
 
 });
 
-Route::middleware(VerifyToken::class)->group(function () {
+Route::middleware(VerifyToken::class)->prefix('users')->controller(UserController::class)->group(function () {
     
-    Route::get('users/search', [UserController::class, 'searchUsers']);
-    Route::get('users/{user:name}', [UserController::class, 'getUserByName']);
-    Route::delete('/users/{user}', [UserController::class, 'deleteUser']);    
+    Route::get('/search', 'searchUsers');
+    Route::get('/{user:name}', 'getUserByName');
+    Route::delete('/{user}', 'deleteUser');    
 });
 
