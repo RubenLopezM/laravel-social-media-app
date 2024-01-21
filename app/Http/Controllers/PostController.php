@@ -35,6 +35,10 @@ class PostController extends Controller
        return Cache::remember('posts', 60 * 60, function(){return $this->postRepository->getPosts();});
     }
 
+    public function getMonthPosts(){
+        return $this->postRepository->getMonthPosts();
+    }
+
     public function storePost(Request $request){
 
         $validator = Validator::make($request->all(), [

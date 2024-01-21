@@ -13,4 +13,5 @@ interface PostRepositoryInterface
     public function getPostsWithDetails();
     public function getUserPosts(User $user);
     public function getUserLastPost(User $user);
+    public function getMonthPosts();
 }

@@ -35,6 +35,7 @@ Route::middleware([VerifyToken::class,'throttle:posts_routes'])->prefix('posts')
     
     Route::post('/', 'storePost');   
     Route::get('/', 'getPosts');
+    Route::get('/month', 'getMonthPosts');
     Route::get('/user/{user}', 'getUserPosts');
     Route::get('/{post}', 'getPost');
     Route::put('/{post}', 'updatePost');
