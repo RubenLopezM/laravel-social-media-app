@@ -14,6 +14,10 @@ final class PostRepository implements PostRepositoryInterface{
         return new PostResource($post->loadCount('comments'));   
     }
 
+    public function getPosTitle(int $post){
+        return response()->json(Post::whereId($post)->value('title'));
+    }
+
     public function updatePost(Post $post, array $attributes)
     {
         $post->title = $attributes['title'];

@@ -26,6 +26,10 @@ class PostController extends Controller
         return $this->postRepository->getPost($post);
     }
 
+    public function getPostTitle($post){
+        return $this->postRepository->getPosTitle($post);
+    }
+
     public function getPosts(Request $request)
     {
          

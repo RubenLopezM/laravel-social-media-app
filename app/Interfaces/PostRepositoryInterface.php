@@ -8,6 +8,7 @@ use App\Models\User;
 interface PostRepositoryInterface
 {
     public function getPost(Post $post);
+    public function getPosTitle(int $post);
     public function updatePost(Post $post, array $attributes);
     public function getPosts();
     public function getPostsWithDetails();
