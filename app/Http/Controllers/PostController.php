@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
 use App\Interfaces\PostRepositoryInterface;
 use App\Models\Post;
 use App\Models\User;
@@ -43,23 +44,11 @@ class PostController extends Controller
         return $this->postRepository->getMonthPosts();
     }
 
-    public function storePost(Request $request){
-
-        $validator = Validator::make($request->all(), [
-            'title' => 'required|unique:posts|max:255',
-            'description' => 'required',
-        ]);
-
-        if ($validator->fails()){
-            return response()->json(['errors'=> $validator->errors()], 400);
-        }
-        
-        $post= auth()->user()->posts()->create([
-            'title'=>$request->input('title'),
-            'description'=>$request->input('description'),
-        ]);
-        
-        return response($post);
+    public function storePost(StorePostRequest $request){
+    
+       $validated = $request->validated();
+       $post= $this->postRepository->storePost($validated); 
+       return response($post);
     }
 
     public function updatePost(Request $request, Post $post){

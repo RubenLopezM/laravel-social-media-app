@@ -8,6 +8,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Exceptions\ThrottleRequestsException as ThrottleException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 
 class Handler extends ExceptionHandler
 {
@@ -38,13 +39,11 @@ class Handler extends ExceptionHandler
 
         if ($exception instanceof AuthorizationException) return response()->json(['error' => 'Unauthorized'], Response::HTTP_FORBIDDEN);
 
+        if ($exception instanceof ValidationException) return response()->json(['message'=> $exception->getMessage()],Response::HTTP_BAD_REQUEST);
+
         if ($exception instanceof ModelNotFoundException){
             $class = class_basename($exception->getModel());
         } return response()->json(["message" => $class. " not found","code"=>404 ], Response::HTTP_NOT_FOUND); 
-
-       
-
-        
         
         return parent::render($request, $exception);
         

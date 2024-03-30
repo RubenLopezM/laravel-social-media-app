@@ -18,6 +18,16 @@ final class PostRepository implements PostRepositoryInterface{
         return response()->json(Post::whereId($post)->value('title'));
     }
 
+    public function storePost(array $attributes){
+        
+        $post = auth()->user()->posts()->create([
+           'title' => $attributes['title'],
+           'description'=>$attributes['description']
+        ]);
+        
+        return $post;
+    }
+
     public function updatePost(Post $post, array $attributes)
     {
         $post->title = $attributes['title'];
