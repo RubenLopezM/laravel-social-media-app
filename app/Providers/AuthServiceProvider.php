@@ -25,11 +25,11 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::define('write-comment', function (User $user, Post $post) {
-            return $user->id !== $post->user_id;
+            return $post->user()->isNot($user);
         });
 
         Gate::define('update-post', function (User $user, Post $post) {
-            return $user->id === $post->user_id;
+            return $post->user()->is($user);
         });
     }
 }
