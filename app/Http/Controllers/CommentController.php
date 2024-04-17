@@ -28,7 +28,6 @@ class CommentController extends Controller
 
     public function storeComment(CommentStoreRequest $request, Post $post){
         
-        Gate::authorize('write-comment', $post);
         
         $validated = $request->validated();
         $attributes = array_merge($validated, array("post_id"=> $post->id, "user_id"=> Auth::id()));
