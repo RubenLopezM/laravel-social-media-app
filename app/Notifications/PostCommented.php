@@ -51,4 +51,9 @@ class PostCommented extends Notification
             //
         ];
     }
+
+    public function shouldSend(object $notifiable, string $channel): bool
+    {   
+        return $this->post->comments_count % 5 === 0;
+    }
 }

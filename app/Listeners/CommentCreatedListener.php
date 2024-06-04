@@ -34,8 +34,6 @@ class CommentCreatedListener implements ShouldQueue
         $post = $comment->post;
         $post->loadCount('comments');
         
-        if ($post->comments_count % 5 === 0) {
-            $post->user->notify(new PostCommented($post));
-        }
+        $post->user->notify(new PostCommented($post));
     }
 }
