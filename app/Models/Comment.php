@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Events\CommentCreated;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Prunable;
 
 class Comment extends Model
 {
-    use HasFactory;
+    use HasFactory, Prunable;
 
         /**
      * The table associated with the model.
@@ -45,7 +47,12 @@ class Comment extends Model
     static::created(function ($comment) {
         event(new CommentCreated($comment));
     });
-}
+}   
+
+    public function prunable(): Builder
+    {
+        return static::where('created_at', '<', now()->subYear());
+    }
 
     public function user(){
     return $this->belongsTo(User::class);
